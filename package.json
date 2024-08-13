@@ -1,0 +1,19 @@
+{
+  "name": "api_banco",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git-codecommit.us-east-2.amazonaws.com/v1/repos/API_Banco"
+  },
+  "keywords": [
+    "apibank"
+  ],
+  "author": "MARROCAR",
+  "license": "ISC"
+}
