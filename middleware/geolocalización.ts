@@ -2,9 +2,9 @@ import { Request, Response, NextFunction} from 'express'
 import 'dotenv/config'
 import axios from 'axios'
 
-const apiKey="077e121dcd1243f6b102afaa4988b478"
 
-async function api(req: Request, res: Response, next: NextFunction): Promise<void> {
+
+async function localizar(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         
         const ip = req.query.ip as string || req.body.ip as string;
@@ -16,7 +16,7 @@ async function api(req: Request, res: Response, next: NextFunction): Promise<voi
 
         console.log('IP:', ip);
 
-        const url: string = `https://api.ipgeolocation.io/ipgeo?apiKey=${apiKey}&ip=${ip}`;
+        const url: string = `https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.APIKEY}&ip=${ip}`;
         const result = await axios.get(url);
         console.log( result.data.country_name);
 
@@ -31,4 +31,4 @@ async function api(req: Request, res: Response, next: NextFunction): Promise<voi
     }
 }
 
-export default api;
+export default localizar;

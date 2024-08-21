@@ -3,9 +3,10 @@ import logs from './Routes/logs';
 import banco from './Routes/Transaccionbancaria';
 import cors_API from '.././API_Banco/cors/losgCors' 
 import cors_transaccion from './cors/transaccionCors'; 
-import config from './config/config';
-import jwt  from 'jsonwebtoken'
-import  api from '.././API_Banco/middleware/geolocalización'
+import config from '../API_Banco/config/config';
+import  localizar from '.././API_Banco/middleware/geolocalización'
+import cors_Token from './cors/crearTokenCors';
+import { createrToken, verificarToken } from '.././API_Banco/middleware/token'
 
 class Server {
     
@@ -30,34 +31,10 @@ class Server {
          });
     }
 
-    private createrToken(req: Request, res: Response ): void {
-        try {
-            if (this.app.get('credentials').publicKey === req.headers['x-api-key']) {
-                const token = jwt.sign(
-                    { secret: this.app.get('credentials').privateKey },
-                    this.app.get('credentials').publicKey,
-                    { expiresIn: 2000, subject: 'Marrocar' }
-                );
-                res.json({
-                    mensaje: 'Success',
-                    token
-                });
-            } else { 
-                res.sendStatus(403);
-            }
-        } catch (err) {
-            res.sendStatus(500);
-        }
-
-        
-    }
-
-    
-
     private routes(): void {
-        this.app.use('/rutalogs', cors_API(this.app),logs);
-        this.app.use('/transacciones', cors_transaccion(this.app),banco);
-        this.app.post('/createToken',api,this.createrToken.bind(this))
+        this.app.use('/rutalogs',localizar,verificarToken, cors_API(this.app),logs); 
+        this.app.use('/transacciones',localizar,verificarToken, cors_transaccion(this.app),banco);
+        this.app.post('/createToken',createrToken.bind(this),cors_Token(this.app)) //prueba lista
     }
     
 
