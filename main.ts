@@ -34,7 +34,7 @@ class Server {
 
     private routes(): void {
         this.app.use('/rutalogs',localizar,verificarToken, cors_API(this.app),logs); 
-        this.app.use('/parametrizacion', cors_transaccion(this.app),banco);
+        this.app.use('/parametrizacion',localizar,verificarToken, cors_transaccion(this.app),banco);
         this.app.post('/createToken',createrToken.bind(this),cors_Token(this.app)) //prueba lista
     }
     
