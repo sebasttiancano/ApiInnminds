@@ -1,4 +1,4 @@
-import localizar from "../../middleware/geolocalización";
+import localizar from "../../Middleware/geolocalización";
 import { Request, Response, NextFunction } from 'express';
 import axios from 'axios';
 

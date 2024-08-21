@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
-import { verificarToken } from '../../middleware/token'; 
-import config from '../../config/config'; 
+import { verificarToken } from '../../Middleware/token'; 
+import config from '../../Config/config'; 
 import httpMocks from 'node-mocks-http'; 
 
 describe('Prueba unitaria para la funcion verificarToken', () => {

@@ -1,12 +1,13 @@
 import express, { Request, Response, NextFunction } from 'express';
 import logs from './Routes/logs';
 import banco from './Routes/Transaccionbancaria';
-import cors_API from '.././API_Banco/cors/losgCors' 
-import cors_transaccion from './cors/transaccionCors'; 
-import config from '../API_Banco/config/config';
-import  localizar from '.././API_Banco/middleware/geolocalización'
-import cors_Token from './cors/crearTokenCors';
-import { createrToken, verificarToken } from '.././API_Banco/middleware/token'
+import cors_API from './Cors/losgCors' 
+import cors_transaccion from './Cors/transaccionCors'; 
+import config from './Config/config';
+import  localizar from './Middleware/geolocalización'
+import cors_Token from './Cors/crearTokenCors';
+import { createrToken, verificarToken } from './Middleware/token'
+
 
 class Server {
     
@@ -33,7 +34,7 @@ class Server {
 
     private routes(): void {
         this.app.use('/rutalogs',localizar,verificarToken, cors_API(this.app),logs); 
-        this.app.use('/transacciones',localizar,verificarToken, cors_transaccion(this.app),banco);
+        this.app.use('/parametrizacion', cors_transaccion(this.app),banco);
         this.app.post('/createToken',createrToken.bind(this),cors_Token(this.app)) //prueba lista
     }
     

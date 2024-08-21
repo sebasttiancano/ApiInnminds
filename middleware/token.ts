@@ -1,7 +1,7 @@
 import  { Request, Response, NextFunction } from 'express';
 import app from '../main';
 import jwt  from 'jsonwebtoken'
-import config from '.././config/config'
+import config from '../Config/config'
 
 export function createrToken(req: Request, res: Response ): void {
     try {

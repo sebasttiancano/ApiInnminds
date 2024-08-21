@@ -1,7 +1,7 @@
-import { createrToken  } from '../../middleware/token';
+import { createrToken  } from '../../Middleware/token';
 import { Request, Response,} from 'express';
 
-import config from '../../config/config';
+import config from '../../Config/config';
 
 
 jest.mock('jsonwebtoken', () => ({

@@ -1,6 +1,6 @@
 import request from 'supertest';
 import jwt from 'jsonwebtoken';
-import config from '../../config/config';
+import config from '../../Config/config';
 
 
 jest.mock('jsonwebtoken');
