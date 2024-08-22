@@ -16,9 +16,11 @@ describe('Pruebas de integración para /rutalogs/rutaget', () => {
 
   it('debe permitir el acceso con un token válido y una IP permitida', async () => {
     const response = await request('http://localhost:3005')
-      .get('/rutalogs/rutaget')
+      .get('/rutalogs/logs')
       .query({ ip: '181.49.10.35' }) 
-      .set('Authorization', `Bearer ${validToken}`); 
+      .set('Authorization', `Bearer ${validToken}`)
+      .send({ IDTRANSACTIONS:1})
+      console.log('esto es un comentario')
         
     expect(response.statusCode).toBe(200);
     
@@ -27,10 +29,11 @@ describe('Pruebas de integración para /rutalogs/rutaget', () => {
   it('debe devolver un estado 500 si el token es inválido', async () => {
     
     const response = await request('http://localhost:3005')
-      .get('/rutalogs')
+      .get('/rutalogs/logs')
       .query({ ip: 'xx' }) 
-      .set('Authorization', 'Bearer token-invalido');
-
+      .set('Authorization', 'Bearer token-invalido')
+      .send({ IDTRANSACTIONS:45})
+      
     expect(response.status).toBe(500);
     
   });
@@ -52,7 +55,7 @@ describe('Pruebas de integracion para /rutalogs/rutapost ', () => {
   
     it('debe permitir el acceso con un token válido y una IP permitida', async () => {
       const response = await request('http://localhost:3005')
-        .post('/rutalogs/rutapost')
+        .post('/rutalogs/logs')
         .query({ ip: '181.49.10.35' }) 
         .set('Authorization', `Bearer ${validToken}`); 
           
@@ -63,7 +66,7 @@ describe('Pruebas de integracion para /rutalogs/rutapost ', () => {
     it('debe devolver un estado 500 si el token es inválido', async () => {
       
       const response = await request('http://localhost:3005')
-        .post('/rutalogs/rutapost')
+        .post('/rutalogs/logs')
         .query({ ip: 'xx' }) 
         .set('Authorization', 'Bearer token-invalido');
   

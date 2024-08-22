@@ -8,7 +8,7 @@ const mockJwtSign = jwt.sign as jest.Mock;
 
 describe('Pruebas de integracion para la ruta createToken', () => {
 
-  it('debería devolver un token cuando la API key es válida', async () => {
+  test('debería devolver un token cuando la API key es válida', async () => {
    const response = await request('http://localhost:3005')
       .post('/createToken')
       .set('ip', '181.49.10.35')
