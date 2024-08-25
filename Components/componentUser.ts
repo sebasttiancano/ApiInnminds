@@ -1,44 +1,91 @@
 import {sqlConnection}  from '../Sqlconnection/sqlconection'
+import {  Request, Response } from 'express';
 import sql from 'mssql'
-import { datosI } from '../Type/type';
-import { datosS } from '../Type/type';
 
-export async function insertLogs( params : datosI):Promise<{ result: any; status: number }>{
+export async function insertPets(req: Request, res: Response):Promise<void>{
     let pool : sql.ConnectionPool | null = null
-    try{
+    try
+    {
         pool = await sqlConnection()
-        const create = await pool.request()
-        .input('IDTRANSACTIONS',sql.Int, params.IDTRANSACTIONS)
-        .input('USERID',sql.Int,params.USERID)
-        .input('TOTALDEBT',sql.Float, params.TOTALDEBT)
-        .input('IP',sql.Float, params.IP)
-        .input('BANK',sql.NVarChar, params.BANK)
-        .input('PAY',sql.Float,params.PAY)
-        .input('DEBT',sql.Float,params.DEBT)
-        .input('PAYMENTDATE',sql.DateTime, new Date())
-        .execute('LOGSINSERT')
+        const Create = await pool.request()
+        .input('Description',sql.NVarChar(100), req.body.Description)
+        .input('User',sql.NVarChar(50),req.body.User)
+        .input('Enable',sql.Bit, req.body.Enable)
+        .input('Name',sql.NVarChar(50), req.body.Name)
+        .input('Type',sql.NVarChar(50), req.body.Type)
+        .input('OldDate',sql.NVarChar(50), req.body.OldDate)
+        .execute('INSERT_ANIMALS')
         pool.close()
         
-        return {result:create, status: 200}
-    }catch(error){
+        res.json({result:Create, mesage:"Creacion exitosa"}).status(200)
+    }
+    catch(error)
+    {
         console.error('Error en la conexion.',error)
-        return { result: error, status:402}
+        res.json({result:error, mesage:"Error"}).status(401)
     }
 }
 
-export async function selectLogs( params : datosS):Promise<{ result: any; status: number }>{
+export async function selectPets( req: Request, res: Response):Promise<void>
+{
+    let pool : sql.ConnectionPool | null = null
+
+    try
+    {
+        pool = await sqlConnection()
+        const Select = await pool.request()
+        .input('ANIMALS_ID',sql.UniqueIdentifier, req.body.AnimaldId)
+        .input('User',sql.NVarChar(50),req.body.User)
+        .input('Enable',sql.Bit, req.body.Enable)
+        .input('Type',sql.NVarChar(50), req.body.Type)
+        .execute('SELECT_ANIMALS')
+        pool.close()
+        res.json({result:Select, mesage:"Seleccion"}).status(200)
+    }
+    catch(error)
+    {
+        console.error('Error en la conexion.',error)
+        res.json({result:error, mesage:"Error"}).status(401)
+    }
+}
+
+export async function UpdatePets( req: Request, res: Response):Promise<void>{
     let pool : sql.ConnectionPool | null = null
     try{
         pool = await sqlConnection()
-        const create = await pool.request()
-        .input('IDTRANSACTIONS',sql.Int, params.IDTRANSACTIONS)
-        .execute('LOGSSELECT')
+        const Update = await pool.request()
+        .input('AnimalID',sql.UniqueIdentifier, req.body.AnimaldId)
+        .input('Description',sql.NVarChar(100), req.body.Description)
+        .input('User',sql.NVarChar(50),req.body.User)
+        .input('Enable',sql.Bit, req.body.Enable)
+        .input('Name',sql.NVarChar(50), req.body.Name)
+        .input('Type',sql.NVarChar(50), req.body.Type)
+        .input('OldDate',sql.NVarChar(50), req.body.OldDate)
+        .execute('UPDATE_ANIMALS')
         pool.close()
-        return {result:create, status: 200}
+        res.json({result:Update, mesage:"Update Correcto"}).status(200)
         
 
     }catch(error){
         console.error('Error en la conexion.',error)
-        return { result: error, status:402}
+        res.json({result:error, mesage:"Error"}).status(401)
+    }
+}
+
+export async function deletePets( req: Request, res: Response):Promise<void>{
+    let pool : sql.ConnectionPool | null = null
+    try
+    {
+        pool = await sqlConnection()
+        const Update = await pool.request()
+        .input('AnimalID',sql.UniqueIdentifier, req.body.AnimaldId)
+        .input('Enable',sql.NVarChar(100), req.body.Description)
+        .execute('UPDATE_ANIMALS')
+        pool.close()
+        res.json({result:Update, mesage:"Update Correcto"}).status(200)
+    }catch(error)
+    {
+        console.error('Error en la conexion.',error)
+        res.json({result:error, mesage:"Error"}).status(401)
     }
 }

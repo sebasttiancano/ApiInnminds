@@ -1,4 +1,5 @@
 CREATE PROCEDURE UPDATE_ANIMALS
+
     @AnimalID uniqueidentifier,
     @Description NVARCHAR(100) = NULL,
     @User NVARCHAR(50) = NULL,
@@ -6,8 +7,11 @@ CREATE PROCEDURE UPDATE_ANIMALS
     @Name NVARCHAR(50) = NULL,
     @Type NVARCHAR(50) = NULL,
     @OldDate NVARCHAR(50) = NULL
+
 AS
+
 BEGIN
+
     UPDATE [ANIMALS]
     SET 
         [ANIMALS_DESCRIPTION] = ISNULL(@Description, [ANIMALS_DESCRIPTION]),

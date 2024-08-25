@@ -24,7 +24,7 @@ BEGIN
         [ANIMALS];
 
     WHERE 
-        (@AnimalID IS NULL OR [ANIMALS_ID] = @AnimalID) 
+        (@ANIMALS_ID IS NULL OR [ANIMALS_ID] = @ANIMALS_ID) 
         
         AND
 
