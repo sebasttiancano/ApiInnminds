@@ -1,11 +1,19 @@
-CREATE PROCEDURE INSERT_TYPE_USERS
+CREATE PROCEDURE INSERT_ANIMALS
 
-    @Description NVARCHAR(150),
-    @Register NVARCHAR(50)
+    @Description NVARCHAR(100),
+    @User NVARCHAR(50),
+    @Enable BIT,
+    @Name NVARCHAR(50),
+    @Type NVARCHAR(50),
+    @OldDate NVARCHAR(50)
+
 AS
+
 BEGIN
-    INSERT INTO [TYPE_USER] 
-    ([TYPE_USER_DESCRIPTION], [TYPE_USER_REGISTER])
+
+    INSERT INTO [ANIMALS] 
+    ([ANIMALS_DESCRIPTION], [ANIMALS_USER], [ANIMALS_ENABLE], [ANIMALS_NAME], [ANIMALS_TYPE], [ANIMALS_OLDDATE])
     VALUES 
-    (@Description, @Register);
+    (@Description, @User, @Enable, @Name, @Type, @OldDate);
+    
 END

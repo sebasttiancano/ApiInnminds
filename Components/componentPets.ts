@@ -9,7 +9,7 @@ export async function insertPets( req: Request, res: Response):Promise<void>{
     try{
         pool = await sqlConnection()
         const create = await pool.request()
-        .input('IDTRANSACTIONS',sql.Int, params.IDTRANSACTIONS)
+        .input('IDTRANSACTIONS',sql.Int, req.body.IDTRANSACTIONS)
         .input('USERID',sql.Int,params.USERID)
         .input('TOTALDEBT',sql.Float, params.TOTALDEBT)
         .input('IP',sql.Float, params.IP)
@@ -17,7 +17,7 @@ export async function insertPets( req: Request, res: Response):Promise<void>{
         .input('PAY',sql.Float,params.PAY)
         .input('DEBT',sql.Float,params.DEBT)
         .input('PAYMENTDATE',sql.DateTime, new Date())
-        .execute('LOGSINSERT')
+        .execute('INSERT_ANIMALS')
         pool.close()
         
         res.json({result:create, mesage:""}).status(200)
