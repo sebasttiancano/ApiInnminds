@@ -1,0 +1,18 @@
+CREATE PROCEDURE INSERT_TYPE_USERS
+
+    @Description NVARCHAR(150),
+    @Register NVARCHAR(50)
+
+AS
+
+BEGIN
+
+    INSERT INTO [TYPE_USER] 
+
+    ([TYPE_USER_DESCRIPTION], [TYPE_USER_REGISTER])
+
+    VALUES
+
+    (@Description, @Register);
+
+END

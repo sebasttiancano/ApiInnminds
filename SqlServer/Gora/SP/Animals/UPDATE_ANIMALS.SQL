@@ -1,0 +1,21 @@
+CREATE PROCEDURE UPDATE_ANIMALS
+    @AnimalID uniqueidentifier,
+    @Description NVARCHAR(100) = NULL,
+    @User NVARCHAR(50) = NULL,
+    @Enable BIT = NULL,
+    @Name NVARCHAR(50) = NULL,
+    @Type NVARCHAR(50) = NULL,
+    @OldDate NVARCHAR(50) = NULL
+AS
+BEGIN
+    UPDATE [ANIMALS]
+    SET 
+        [ANIMALS_DESCRIPTION] = ISNULL(@Description, [ANIMALS_DESCRIPTION]),
+        [ANIMALS_USER] = ISNULL(@User, [ANIMALS_USER]),
+        [ANIMALS_ENABLE] = ISNULL(@Enable, [ANIMALS_ENABLE]),
+        [ANIMALS_NAME] = ISNULL(@Name, [ANIMALS_NAME]),
+        [ANIMALS_TYPE] = ISNULL(@Type, [ANIMALS_TYPE]),
+        [ANIMALS_OLDDATE] = ISNULL(@OldDate, [ANIMALS_OLDDATE])
+    WHERE 
+        [ANIMALS_ID] = @AnimalID;
+END

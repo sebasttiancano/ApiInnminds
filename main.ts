@@ -1,12 +1,8 @@
 import express, { Request, Response, NextFunction } from 'express';
-import logs from './Routes/logs';
-import banco from './Routes/Transaccionbancaria';
-import cors_API from './Cors/losgCors' 
-import cors_transaccion from './Cors/transaccionCors'; 
+import Api from './Routes/Api';
+import cors_API from './cors/cors_Api' 
 import config from './Config/config';
-import  localizar from './Middleware/geolocalización'
-import cors_Token from './Cors/crearTokenCors';
-import { createrToken, verificarToken } from './Middleware/token'
+import { verificarToken } from './Middleware/token'
 
 
 class Server {
@@ -33,9 +29,7 @@ class Server {
     }
 
     private routes(): void {
-        this.app.use('/rutalogs',localizar,verificarToken, cors_API(this.app),logs); 
-        this.app.use('/parametrizacion',localizar,verificarToken, cors_transaccion(this.app),banco);
-        this.app.post('/createToken',createrToken.bind(this),cors_Token(this.app)) 
+        this.app.use('/Api',verificarToken, cors_API(this.app),Api);
     }
     
 
