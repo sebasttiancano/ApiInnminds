@@ -2,8 +2,6 @@ import express, { Request, Response, NextFunction } from 'express';
 import Api from './Routes/Api';
 import cors_API from './cors/cors_Api' 
 import config from './Config/config';
-import { verificarToken } from './Middleware/token'
-
 
 class Server {
     
@@ -29,7 +27,8 @@ class Server {
     }
 
     private routes(): void {
-        this.app.use('/Api',verificarToken, cors_API(this.app),Api);
+        
+        this.app.use('/Api', cors_API(this.app),Api);
     }
     
 
