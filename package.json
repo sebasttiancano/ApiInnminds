@@ -1,5 +1,5 @@
 {
-  "name": "api_banco",
+  "name": "api_innminds",
   "version": "1.0.0",
   "description": "",
   "main": "main.ts",
@@ -10,13 +10,13 @@
     "dev": "nodemon --exec ts-node ./main.ts"
   },
   "repository": {
-    "type": "git",
-    "url": "https://git-codecommit.us-east-2.amazonaws.com/v1/repos/API_Banco"
+    "type": "aws",
+    "url": "https://git-codecommit.us-east-2.amazonaws.com/v1/repos/API_ZEUS"
   },
   "keywords": [
-    "APIBANK"
+    "api_innminds"
   ],
-  "author": "MARROCAR",
+  "author": "INNMINDS",
   "license": "ISC",
   "dependencies": {
     "@types/mssql": "^9.1.5",
