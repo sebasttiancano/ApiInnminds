@@ -21,8 +21,6 @@ export function createrToken(req: Request, res: Response ): void {
     } catch (err) {
         res.sendStatus(400);
     }
-
-    
 }
 
 export function verificarToken(req: Request, res: Response, next: NextFunction): void{

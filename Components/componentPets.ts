@@ -5,16 +5,19 @@ import sql from 'mssql'
 export async function insertPets( req: Request, res: Response):Promise<void>{
     let pool : sql.ConnectionPool | null = null
     try
-    {
+    {   
+        console.log(req.body)
         pool = await sqlConnection()
         const Create = await pool.request()
-        .input('Description',sql.NVarChar(100), req.body.Description)
-        .input('User',sql.NVarChar(50),req.body.User)
-        .input('Enable',sql.Bit, req.body.Enable)
-        .input('Name',sql.NVarChar(50), req.body.Name)
-        .input('Type',sql.NVarChar(50), req.body.Type)
-        .input('OldDate',sql.NVarChar(50), req.body.OldDate)
+        .input('Description',sql.NVarChar(100), req.body.data.Description)
+        .input('User',sql.NVarChar(50),req.body.data.User)
+        .input('Enable',sql.Bit, req.body.data.Enable)
+        .input('Name',sql.NVarChar(50), req.body.data.Name)
+        .input('Type',sql.NVarChar(50), req.body.data.Type)
+        .input('OldDate',sql.NVarChar(50), req.body.data.OldDate)
         .execute('INSERT_ANIMALS')
+
+        
         pool.close()
         
         res.json({result:Create, mesage:"Creacion exitosa"}).status(200)

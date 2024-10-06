@@ -27,7 +27,9 @@ class Server {
     }
 
     private routes(): void {
-        
+        this.app.get('/', function (_req : Request, res : Response){
+            res.json({message : "Bienvenido a la Api de innminds"}).status(200)
+        });
         this.app.use('/Api', cors_API(this.app),Api);
     }
     
