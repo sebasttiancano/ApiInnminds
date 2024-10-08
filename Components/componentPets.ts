@@ -1,6 +1,6 @@
 import {sqlConnection}  from '../Sqlconnection/sqlconection'
 import {  Request, Response } from 'express';
-import sql from 'mssql'
+import sql, { MAX } from 'mssql'
 
 export async function insertPets( req: Request, res: Response):Promise<void>{
     let pool : sql.ConnectionPool | null = null
@@ -15,8 +15,8 @@ export async function insertPets( req: Request, res: Response):Promise<void>{
         .input('Name',sql.NVarChar(50), req.body.data.Name)
         .input('Type',sql.NVarChar(50), req.body.data.Type)
         .input('OldDate',sql.NVarChar(50), req.body.data.OldDate)
+        .input('Image', sql.NVarChar(MAX),req.body.data.Images)
         .execute('INSERT_ANIMALS')
-
         
         pool.close()
         
@@ -32,13 +32,14 @@ export async function insertPets( req: Request, res: Response):Promise<void>{
 export async function selectPets( req: Request, res: Response):Promise<void>{
     let pool : sql.ConnectionPool | null = null
     try
-    {
+    {   
+        console.log(req.query)
         pool = await sqlConnection()
         const Select = await pool.request()
-        .input('ANIMALS_ID',sql.UniqueIdentifier, req.body.AnimaldId)
-        .input('User',sql.NVarChar(50),req.body.User)
-        .input('Enable',sql.Bit, req.body.Enable)
-        .input('Type',sql.NVarChar(50), req.body.Type)
+        .input('ANIMALS_ID',sql.UniqueIdentifier, req.query.AnimaldId)
+        .input('User',sql.NVarChar(50),req.query.User)
+        .input('Enable',sql.Bit, req.query.Enable)
+        .input('Type',sql.NVarChar(50), req.query.Type)
         .execute('SELECT_ANIMALS')
         pool.close()
         res.json({result:Select, mesage:"Seleccion"}).status(200) 

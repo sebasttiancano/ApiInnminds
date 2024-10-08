@@ -17,7 +17,7 @@ class Server {
     config(): void {
         this.app.set('port', 3005);
         this.app.set('credentials', config);
-        this.app.use(express.json());
+        this.app.use(express.json({limit: '50mb'}));
         this.app.use(function (_req: Request, res: Response, next: NextFunction) {
            res.header("Access-Control-Allow-Origin", "*");
              res.header("Access-Control-Allow-Methods", "GET,OPTIONS,POST,PUT,DELETE,PATCH");
