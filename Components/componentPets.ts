@@ -52,15 +52,16 @@ export async function selectPets( req: Request, res: Response):Promise<void>{
 export async function UpdatePets( req: Request, res: Response):Promise<void>{
     let pool : sql.ConnectionPool | null = null
     try{
+        console.log(req)
         pool = await sqlConnection()
         const Update = await pool.request()
-        .input('AnimalID',sql.UniqueIdentifier, req.body.AnimaldId)
-        .input('Description',sql.NVarChar(100), req.body.Description)
-        .input('User',sql.NVarChar(50),req.body.User)
-        .input('Enable',sql.Bit, req.body.Enable)
-        .input('Name',sql.NVarChar(50), req.body.Name)
-        .input('Type',sql.NVarChar(50), req.body.Type)
-        .input('OldDate',sql.NVarChar(50), req.body.OldDate)
+        .input('AnimalID',sql.UniqueIdentifier, req.body.data.AnimaldId)
+        .input('Description',sql.NVarChar(100), req.body.data.Description)
+        .input('User',sql.NVarChar(50),req.body.data.User)
+        .input('Enable',sql.Bit, req.body.data.Enable)
+        .input('Name',sql.NVarChar(50), req.body.data.Name)
+        .input('Type',sql.NVarChar(50), req.body.data.Type)
+        .input('OldDate',sql.NVarChar(50), req.body.data.OldDate)
         .execute('UPDATE_ANIMALS')
         pool.close()
         res.json({result:Update, mesage:"Update Correcto"}).status(200)
